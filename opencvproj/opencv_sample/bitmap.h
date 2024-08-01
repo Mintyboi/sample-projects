@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <opencv2/opencv.hpp>
+
 using uint8_t = unsigned char;
 
 namespace Gdiplus
@@ -20,13 +22,15 @@ namespace Gdiplus
 
         int GetWidth();
         int GetHeight();
+        cv::Mat getCvMat();
 
         uint8_t* GetRawData();
 
-    protected:
+    private:
         int m_nWidth;
         int m_nHeight;
         uint8_t* m_rawData;
+        cv::Mat m_mat;
     };
 
     inline int Bitmap::GetWidth()
@@ -37,6 +41,16 @@ namespace Gdiplus
     inline int Bitmap::GetHeight()
     {
         return m_nHeight;
+    }
+
+    inline cv::Mat Bitmap::getCvMat()
+    {
+        return m_mat;
+    }
+
+    inline uint8_t* Bitmap::GetRawData()
+    {
+        return m_rawData;
     }
 
 } // GDI namespace stub

@@ -25,6 +25,7 @@ Bitmap::Bitmap(int width, int height)
     bytesPerRow = COMPUTE_BEST_BYTES_PER_ROW(bytesPerRow);
 
     m_rawData = (unsigned char*)calloc(1, bytesPerRow * height);
+    m_mat = cv::Mat(height, width, CV_8UC4, m_rawData);
 }
 
 Bitmap::~Bitmap()
@@ -33,9 +34,4 @@ Bitmap::~Bitmap()
         free((void*)m_rawData);
         m_rawData = NULL;
     }
-}
-
-uint8_t* Bitmap::GetRawData()
-{
-    return m_rawData;
 }

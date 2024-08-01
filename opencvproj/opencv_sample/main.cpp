@@ -33,11 +33,11 @@ int main(void)
     char rook_window[] = "Drawing 2: Rook";
 
     /// Create black empty images
-    //Bitmap* atomBm = new Bitmap(w, w);
+    Bitmap* atomBm = new Bitmap(w, w);
     Mat rook_image = Mat::zeros(w, w, CV_8UC3);
     //![create_images]
 
-/*
+
     /// 1. Draw a simple atom:
     /// -----------------------
 
@@ -48,7 +48,7 @@ int main(void)
     MyEllipse(atomBm, -45);
 
     MyFilledCircle(atomBm, Point(w / 2, w / 2));
-*/
+
 
 /// 2. Draw a rook
 /// ------------------
@@ -76,8 +76,8 @@ int main(void)
 
     /// 3. Display your stuff!
     //Mat atom_image_bm(atomBm->GetHeight(), atomBm->GetWidth(), CV_8UC4, atomBm->GetRawData());
-    //imshow(atom_window, atom_image_bm);
-    //moveWindow(atom_window, 0, 200);
+    imshow(atom_window, atomBm->getCvMat());
+    moveWindow(atom_window, 0, 200);
     imshow(rook_window, rook_image);
     moveWindow(rook_window, w, 200);
 
@@ -97,9 +97,8 @@ void MyEllipse(Bitmap* inBitmap, double angle)
 {
     int thickness = 2;
     int lineType = 8;
-    Mat img(inBitmap->GetHeight(), inBitmap->GetWidth(), CV_8UC4, inBitmap->GetRawData());
 
-    ellipse(img,
+    ellipse(inBitmap->getCvMat(),
         Point(w / 2, w / 2),
         Size(w / 4, w / 16),
         angle,
@@ -118,8 +117,7 @@ void MyEllipse(Bitmap* inBitmap, double angle)
  //![my_filled_circle]
 void MyFilledCircle(Bitmap* inBitmap, Point center)
 {
-    Mat img(inBitmap->GetHeight(), inBitmap->GetWidth(), CV_8UC4, inBitmap->GetRawData());
-    circle(img,
+    circle(inBitmap->getCvMat(),
         center,
         w / 32,
         Scalar(0, 0, 255),
