@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Draggable.min.js"></script>
+    </head>
+    <body>
+        <style>
+            .expandable {
+                min-height: 300px;
+                width: 300px;
+                background-color: grey;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        
+            .draggable {
+                width: 100px;
+                background-color: blue;
+                color: white;
+            }
+        </style>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", (event) => {
+                gsap.registerPlugin(Draggable);
+            });
+        </script>
+
+
+        <div class="expandable">
+            <span>Drag Into Here (let your cursor come outside the draggable and over the grey box to allow it to expand)</span>
+        </div>
+        
+        <div class="draggable">
+        Drag Me
+        </div>
+
+        <script>
+            new Draggable('.draggable');
+        </script>
+    </body>
+</html>

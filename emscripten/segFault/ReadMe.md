@@ -1,0 +1,1 @@
+https://github.com/emscripten-core/emscripten/issues/11432

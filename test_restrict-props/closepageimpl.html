@@ -1,0 +1,22 @@
+<html>
+<head>
+</head>
+<body>
+    <script type="text/javascript">
+        window.addEventListener("message", (message) => {
+            if (message.data === "close"){
+                alert("closing popup now");
+                window.close();
+            }
+            // if (message.origin === window.opener.location.origin) {
+            //     if (message.data === "close"){
+            //         alert("closing popup now");
+            //         window.close();
+            //     }
+            // }
+        });
+        window.opener.postMessage("Message from popup: aloooha!");
+    </script>
+    <h1> This is the redirected link </h1>
+</body>
+</html>

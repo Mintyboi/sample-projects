@@ -1,0 +1,34 @@
+<html>
+<head>
+    <meta http-equiv="origin-trial" content="AlA7oG4Y1bFl42WV2AiMsmLi/0Lxq2VuziZBsD4iP6l8DhuKAItVlG02s2CRekw0A+hoG2e7VQnHO8STISiQCAEAAABZeyJvcmlnaW4iOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJmZWF0dXJlIjoiQ29vcFJlc3RyaWN0UHJvcGVydGllcyIsImV4cGlyeSI6MTcwNzI2Mzk5OX0="/>
+</head>
+<body>
+    <script type="text/javascript">
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register(`sw.js`, {
+                updateViaCache: 'none', 
+                scope: './' })
+                .then(registration => {
+                    if (registration.active) {
+                        console.debug("SW active");
+                    }
+                    else if (registration.installing) {
+                        registration.installing.addEventListener('statechange', () => {
+                            if (registration.active) {
+                                console.debug("SW active after install");
+                            }
+                        });
+                    }
+
+                    setTimeout(() => {
+                        fetch("https://devcenter0.assets.heroku.com/article-images/782-imported-1443570285-782-imported-1443554754-56-original.jpg");
+                    }, 1000);
+
+                    setTimeout(() => {
+                        fetch("https://devcenter0.assets.heroku.com/article-images/782-imported-1443570285-782-imported-1443554754-56-original.jpg");
+                    }, 5000);
+                });
+        }
+    </script>
+</body>
+</html>
