@@ -1,14 +1,24 @@
 let counter = 0;
 
 const canvas = document.getElementById("canvas");
-const context = canvas.getContext("2d");
 
 // set up a worker thread to render to offscreen canvas
 const worker = new Worker("worker.js");
 
 function drawCanvas() {
+    // const offscreen = new ArrayBuffer();
+    const offscreen = canvas.transferControlToOffscreen();
+    
+    worker.postMessage({
+        msgid: 1,
+        cWidth: canvas.width,
+        cHeight: canvas.height,
+        offscreencanvas: offscreen
+    }, [offscreen]);
 
-    worker.postMessage({msgid: 1, cWidth: canvas.width, cHeight: canvas.height}, []);
+    // For non-jspi workflow; Cannot transfer control from a canvas that has a rendering context.
+    // const context = canvas.getContext("2d");
+    // worker.postMessage({msgid: 1, cWidth: canvas.width, cHeight: canvas.height}, []);
 }
 
 drawCanvas();

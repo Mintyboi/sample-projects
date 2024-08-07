@@ -1,6 +1,7 @@
 // Following code section is generally copied from JS generated with BUILD_AS_WORKER flag
 // turned on.
 // This code section is required for _render_on_offscreen_canvas() defined in worker.wasm to
+
 // be loaded before calling it from onmessage()
 (function () {
     var messageBuffer = null, buffer = 0, bufferSize = 0;
@@ -23,8 +24,8 @@
         }
     }
 
+    // For non-jspi workflow
     function drawOnOffscreenCanvas() {
-
         while (1)
         {
             console.log("[worker] received offscreen canvas.. rendering...");
@@ -84,16 +85,18 @@
         // === MODIFIED ===
         // console.log("message from main received in worker:", msg);
         if (msg.data.msgid == 1) {
+            Module.canvas = msg.data.offscreencanvas;
 
-            Module.canvas = new OffscreenCanvas(msg.data.cWidth, msg.data.cHeight);
-            var stagingCanvas = new OffscreenCanvas(msg.data.cWidth, msg.data.cHeight);
-            Module.stagingContext = stagingCanvas.getContext("2d", {willReadFrequently: true});
+            // For non-jspi workflow
+            // Module.canvas = new OffscreenCanvas(msg.data.cWidth, msg.data.cHeight);
+            // var stagingCanvas = new OffscreenCanvas(msg.data.cWidth, msg.data.cHeight);
+            // Module.stagingContext = stagingCanvas.getContext("2d", {willReadFrequently: true});
             specialHTMLTargets["!canvas"] = Module.canvas;
         }
 
-        drawOnOffscreenCanvas();
+        _render_on_offscreen_canvas();
 
         debugger;
-        console.log("after drawOnOffscreenCanvas(), should not reach here!");
+        console.log("after _render_on_offscreen_canvas(), should not reach here!");
     }
 })();

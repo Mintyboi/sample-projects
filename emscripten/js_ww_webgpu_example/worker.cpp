@@ -6,6 +6,10 @@
 #include <emscripten/emscripten.h>
 #include <emscripten/bind.h>
 
+extern "C" {
+    extern void jsTransferImageWebGPU();
+}
+
 WGPUDevice device;
 WGPUQueue queue;
 WGPUSwapChain swapchain;
@@ -259,22 +263,26 @@ static bool draw() {
     wgpuSwapChainPresent(swapchain);
     wgpuTextureViewRelease(backBufView);													// release textureView
 
+    jsTransferImageWebGPU();
+
     return true;
 }
 
 extern "C" {
 
-    void render_on_offscreen_canvas() {
-
-        printf("render_on_offscreen_canvas() \n");
-
+    EMSCRIPTEN_KEEPALIVE void render_on_offscreen_canvas()
+    {
         static bool isPrepared = false;
-
         if (!isPrepared)
         {
             prepare_to_draw();
             isPrepared = true;
         }
-        draw();
+
+        while (1)
+        {
+            printf("C++Land: render_on_offscreen_canvas() \n");
+            draw();
+        }
     }
 }
