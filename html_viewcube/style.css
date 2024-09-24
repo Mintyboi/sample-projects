@@ -1,0 +1,46 @@
+body {
+	background-color: #000;
+	margin: 0px;
+	overflow: hidden;
+}
+
+.obit-controls-gizmo {
+	position: absolute;
+	top: 2em;
+	right: 2em;
+    z-index: 1000;
+    background-color: #FFFFFF00;
+    border-radius: 100%;
+    transition: background-color .15s linear;
+    cursor: pointer;
+}
+
+.obit-controls-gizmo.dragging, .obit-controls-gizmo:hover  {
+    background-color: #ffffff33;
+    
+}
+
+.obit-controls-gizmo.inactive {
+    pointer-events: none;
+    background-color: #FFFFFF00 !important; 
+}
+
+.dg.a {
+    float: left !important;
+    margin-left: 2em !important;
+}
+
+a{
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+    width: 3em;
+    height: 3em;
+    overflow: hidden;
+    border-radius: 100%;
+}
+
+img{ 
+    width: 100%;
+    height: 100%;
+}
