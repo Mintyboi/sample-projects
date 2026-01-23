@@ -526,7 +526,9 @@ class OrbitControls extends EventDispatcher {
 		function handleMouseMoveRotate( event ) {
 
 			rotateEnd.set( event.clientX, event.clientY );
-
+			// Convert pointer delta (pixels) into an angular delta (radians).
+			// 2π * (delta / element height) gives a full rotation over the viewport height,
+			// then scaled by rotateSpeed.
 			rotateDelta.subVectors( rotateEnd, rotateStart ).multiplyScalar( scope.rotateSpeed );
 
 			const element = scope.domElement;
@@ -715,6 +717,7 @@ class OrbitControls extends EventDispatcher {
 
 			}
 
+			// Same angle conversion for touch input.
 			rotateDelta.subVectors( rotateEnd, rotateStart ).multiplyScalar( scope.rotateSpeed );
 
 			const element = scope.domElement;

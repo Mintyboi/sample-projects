@@ -34,9 +34,13 @@ import {
         if(this.lock)
           return;
     
+        // The gizmo doesn't compute its own rotation angle; it mirrors the camera's
+        // orientation by extracting the camera rotation matrix and inverting it.
         camera.updateMatrix();
         invRotMat.extractRotation(camera.matrix).invert();
     
+        // Project each axis direction through the inverted camera rotation to get
+        // 2D positions on the gizmo canvas.
         for (let i = 0, length = axes.length; i < length; i++)
           setAxisPosition(axes[i], invRotMat);
     
@@ -268,6 +272,8 @@ import {
       }
     
       function setAxisPosition ( axis ) {
+        // Rotate the axis direction into camera space to determine its screen-space
+        // position on the gizmo.
         const position = axis.direction.clone().applyMatrix4(invRotMat)
         const size = axis.size;
         axis.position.set(
